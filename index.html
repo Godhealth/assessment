@@ -106,12 +106,15 @@
 
   <!-- ================= SCREEN 1: REGISTRATION ================= -->
   <section id="screen-reg" class="screen active">
-    <div class="text-center mb-7">
-      <p class="gold-text tracking-[0.4em] text-[11px] sm:text-xs font-semibold mb-4">GODHEALTH</p>
-      <h1 class="display text-[40px] sm:text-5xl font-bold leading-[1.06] gold-text">Why You Still Feel<br>Tired, Stuck &amp; Far From God</h1>
-      <p class="display text-lg sm:text-xl italic mt-4" style="color: var(--ink-soft);">The Biblical &amp; Biochemical Scan that exposes the hidden leaks draining your body, mind, and spirit.</p>
-      <p class="text-[15px] leading-relaxed max-w-md mx-auto mt-4" style="color: var(--ink);">
-        In 5 minutes, see exactly where your <span class="gold-text font-semibold">Physical</span>, <span class="gold-text font-semibold">Mental</span>, and <span class="gold-text font-semibold">Spiritual</span> health really stand — and what's been holding you back.
+    <div class="text-center mb-5">
+      <p class="gold-text tracking-[0.4em] text-[11px] sm:text-xs font-semibold mb-3">GODHEALTH</p>
+      <h1 class="display text-[38px] sm:text-6xl font-bold leading-[1.05] gold-text">The Kingdom<br>Health Scan</h1>
+      <p class="display text-base sm:text-xl italic mt-3 max-w-lg mx-auto leading-snug" style="color: var(--ink-soft);">A free, 5-minute Biblical &amp; Biochemical protocol that exposes the hidden saboteurs robbing your body, soul, and spirit of divine health.</p>
+      <p class="text-[14px] sm:text-[15px] leading-relaxed max-w-md mx-auto mt-3" style="color: var(--ink);">
+        In just 5 minutes, see exactly where the health of your <span class="gold-text font-semibold">Body</span>, <span class="gold-text font-semibold">Soul</span>, and <span class="gold-text font-semibold">Spirit</span> really stands — and what's been holding you back.
+      </p>
+      <p class="text-[12px] sm:text-[13px] leading-relaxed max-w-md mx-auto mt-4 tracking-wide" style="color: var(--gold-2);">
+        Built on <span class="gold-text font-semibold">200+ scientific studies</span> and centuries-old principles from <span class="gold-text font-semibold">the Bible</span>.
       </p>
     </div>
 
@@ -132,7 +135,7 @@
       </div>
       <p id="regError" class="text-red-300 text-sm mt-4 hidden"></p>
       <button id="startBtn" class="gold-fill w-full mt-6 font-semibold text-lg py-4 rounded-2xl transition-all shadow-xl" style="box-shadow: 0 18px 40px -18px rgba(217,180,90,0.6);">
-        Start Assessment
+        Start Your Free Scan Now
       </button>
       <p class="text-center mt-4 text-xs" style="color: var(--ink-mute);">15 quick questions · about 5 minutes · your data stays private</p>
     </div>
@@ -157,7 +160,7 @@
    ============================================================ */
 const QUESTIONS = [
   { id:"q1", pillars:["spiritual"],
-    title:"How is your daily walk with God right now?",
+    title:"How would you describe your daily walk with God right now?",
     verse:{ ref:"John 15:5", text:"I am the vine, ye are the branches: He that abideth in me, and I in him, the same bringeth forth much fruit: for without me ye can do nothing." },
     options:[
       {pts:1,text:"I don't believe in Jesus Christ. I feel far from God and rarely pray or read His Word."},
@@ -165,8 +168,9 @@ const QUESTIONS = [
       {pts:3,text:"Jesus Christ is my Lord and Saviour. I pray and read the Bible often, but I know I can seek God more and need to spend more time with the Lord."},
       {pts:4,text:"Jesus Christ is my Lord and Saviour. I know my identity in Christ and walk in it. Every day I am grounded in the Word, in prayer, and I take up my cross daily."}
     ]},
+
   { id:"q2", pillars:["mental","spiritual"],
-    title:"When a setback or hard moment hits, what happens to your faith?",
+    title:"When life hits you hard, how do you usually respond?",
     verse:{ ref:"Romans 5:3-4", text:"Tribulation worketh patience; And patience, experience; and experience, hope." },
     options:[
       {pts:1,text:"I pull away from God and lose hope. The setback takes over."},
@@ -174,8 +178,19 @@ const QUESTIONS = [
       {pts:3,text:"I lean on God and recover, though it takes me a while to find my footing."},
       {pts:4,text:"I stay anchored in God. Hard moments grow my faith instead of breaking it."}
     ]},
+
+  { id:"qbelief", pillars:["mental","spiritual"],
+    title:"When you imagine becoming truly healthy and strong, do you believe it's possible for YOU?",
+    verse:{ ref:"Matthew 19:26", text:"With men this is impossible; but with God all things are possible." },
+    options:[
+      {pts:1,text:"No. I've failed too many times — I feel like this is just how I am."},
+      {pts:2,text:"Maybe, but it feels too hard and too far away to really reach."},
+      {pts:3,text:"I think it's possible, but I struggle to believe I'll stay consistent."},
+      {pts:4,text:"Yes — I genuinely believe God can transform me when I commit to it."}
+    ]},
+
   { id:"q3", pillars:["physical"],
-    title:"How healthy are your eating habits and food cravings?",
+    title:"How would you describe the way you eat?",
     verse:{ ref:"1 Corinthians 10:31", text:"Whether therefore ye eat, or drink, or whatsoever ye do, do all to the glory of God." },
     options:[
       {pts:1,text:"I eat mostly processed food and feel out of control with my cravings."},
@@ -183,8 +198,20 @@ const QUESTIONS = [
       {pts:3,text:"I eat fairly healthy whole foods, but still get energy crashes or cravings."},
       {pts:4,text:"I eat mostly God-made whole foods and feel in control of my cravings."}
     ]},
+
+  { id:"qfood", diagnostic:true, relatesTo:"q3", pillars:["physical"],
+    title:"When you reach for unhealthy food, what is really behind it most often?",
+    verse:{ ref:"1 Corinthians 10:13", text:"God is faithful, who will not suffer you to be tempted above that ye are able; but will with the temptation also make a way to escape." },
+    options:[
+      {root:"emotion",text:"Stress, emotions, or boredom — I eat to feel better or to cope."},
+      {root:"noplan",text:"No plan or structure — I just grab whatever is quick and available."},
+      {root:"knowledge",text:"I'm honestly not sure what's truly healthy, or how to prepare it."},
+      {root:"environment",text:"My home, family, or work is full of unhealthy food and temptation."},
+      {root:"none",text:"Nothing really — I rarely reach for unhealthy food."}
+    ]},
+
   { id:"q4", pillars:["physical"],
-    title:"How active are you day to day?",
+    title:"How much do you move your body in a normal week?",
     verse:{ ref:"1 Timothy 4:8", text:"For bodily exercise profiteth little: but godliness is profitable unto all things." },
     options:[
       {pts:1,text:"I rarely move or exercise. I sit most of the day."},
@@ -192,8 +219,9 @@ const QUESTIONS = [
       {pts:3,text:"I move regularly, but I don't yet have a consistent training routine."},
       {pts:4,text:"I move daily, hit my steps, and follow a steady training routine."}
     ]},
+
   { id:"q5", pillars:["mental","physical"],
-    title:"How do you feel about your weight and body right now?",
+    title:"How do you feel about your weight and your body right now?",
     verse:{ ref:"1 Corinthians 6:19", text:"What? know ye not that your body is the temple of the Holy Ghost which is in you?" },
     options:[
       {pts:1,text:"I am carrying a lot of extra weight and often feel physical pain or low energy."},
@@ -201,8 +229,9 @@ const QUESTIONS = [
       {pts:3,text:"My weight is fairly stable, but I'd like more strength and muscle tone."},
       {pts:4,text:"I am at a healthy weight and feel lean, strong, and energetic."}
     ]},
+
   { id:"q6", pillars:["mental","physical"],
-    title:"How well do you sleep and recover?",
+    title:"How is your sleep and recovery?",
     verse:{ ref:"Psalm 4:8", text:"I will both lay me down in peace, and sleep: for thou, LORD, only makest me dwell in safety." },
     options:[
       {pts:1,text:"I'm always tired. I sleep badly and wake up exhausted."},
@@ -210,17 +239,30 @@ const QUESTIONS = [
       {pts:3,text:"I sleep okay, but I don't have a real recovery routine yet."},
       {pts:4,text:"I sleep well on a steady rhythm and wake up rested and energized."}
     ]},
+
   { id:"q7", pillars:["mental"],
-    title:"How well do you handle stress and your thoughts?",
+    title:"How would you describe your stress and your thought life?",
     verse:{ ref:"Philippians 4:6-7", text:"Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God." },
     options:[
-      {pts:1,text:"I feel overwhelmed and anxious most of the time, and I numb it with my phone, TV, or social media."},
-      {pts:2,text:"I worry a lot and find it hard to quiet my mind, so I often escape into my phone or screens."},
-      {pts:3,text:"I manage stress fairly well, but I still spend too much time on my phone, TV, or social media to switch off."},
+      {pts:1,text:"I feel overwhelmed and anxious most of the time."},
+      {pts:2,text:"I worry a lot and find it hard to quiet my mind."},
+      {pts:3,text:"I manage stress fairly well, but it still gets the better of me at times."},
       {pts:4,text:"I take serious moments of rest to silence my thoughts and relax, and I bring my worries to God."}
     ]},
+
+  { id:"qcope", diagnostic:true, relatesTo:"q7", pillars:["mental"],
+    title:"When stress or anxiety hits, what do you usually turn to first?",
+    verse:{ ref:"Matthew 11:28", text:"Come unto me, all ye that labour and are heavy laden, and I will give you rest." },
+    options:[
+      {root:"food",text:"Food, sugar, alcohol, or another drink to take the edge off."},
+      {root:"screen",text:"My phone, TV, or social media to numb out and escape."},
+      {root:"withdraw",text:"I withdraw, isolate, or shut down."},
+      {root:"overwork",text:"I push harder and overwork to stay in control."},
+      {root:"healthy",text:"I pray, move my body, or talk to someone — I face it head-on."}
+    ]},
+
   { id:"q8", pillars:["mental","spiritual"],
-    title:"How much do the people around you support your growth?",
+    title:"How strong is the support and accountability around you?",
     verse:{ ref:"Ecclesiastes 4:9-10", text:"Two are better than one; because they have a good reward for their labour. For if they fall, the one will lift up his fellow." },
     options:[
       {pts:1,text:"I fight alone. No one really holds me accountable."},
@@ -228,8 +270,20 @@ const QUESTIONS = [
       {pts:3,text:"I have some support, but I tend to hide my struggles from others."},
       {pts:4,text:"I have a strong circle and a partner who keeps me accountable."}
     ]},
+
+  { id:"qopen", diagnostic:true, relatesTo:"q8", pillars:["mental"],
+    title:"What makes it hardest to open up about your real struggles?",
+    verse:{ ref:"James 5:16", text:"Confess your faults one to another, and pray one for another, that ye may be healed." },
+    options:[
+      {root:"shame",text:"Shame — I'm afraid of being judged or seen as weak."},
+      {root:"trust",text:"I don't have anyone I truly trust with this."},
+      {root:"perfection",text:"I feel I should be able to handle it on my own."},
+      {root:"burden",text:"I don't want to burden other people with my problems."},
+      {root:"none",text:"Nothing — I have people I can be fully open with."}
+    ]},
+
   { id:"q9", pillars:["spiritual","mental","physical"],
-    title:"How is fasting part of your life?",
+    title:"What is your relationship with fasting?",
     verse:{ ref:"Matthew 6:17-18", text:"But thou, when thou fastest, anoint thine head, and wash thy face; That thou appear not unto men to fast." },
     options:[
       {pts:1,text:"I never fast. The idea feels too hard."},
@@ -237,8 +291,9 @@ const QUESTIONS = [
       {pts:3,text:"I fast now and then, but not in a structured way."},
       {pts:4,text:"I fast regularly to renew my body, sharpen my mind, and draw close to God."}
     ]},
+
   { id:"q11", pillars:["physical"],
-    title:"How well do you stay hydrated each day?",
+    title:"How much clean water do you drink?",
     verse:{ ref:"John 7:38", text:"He that believeth on me, as the scripture hath said, out of his belly shall flow rivers of living water." },
     options:[
       {pts:1,text:"I rarely drink water. Mostly coffee, soda, or sugary drinks."},
@@ -246,17 +301,9 @@ const QUESTIONS = [
       {pts:3,text:"I drink water most days, but not always enough."},
       {pts:4,text:"I drink plenty of clean water every day and feel the difference."}
     ]},
-  { id:"q12", pillars:["physical","mental"],
-    title:"How much time do you spend outdoors in nature?",
-    verse:{ ref:"Psalm 19:1", text:"The heavens declare the glory of God; and the firmament sheweth his handywork." },
-    options:[
-      {pts:1,text:"Almost never. I'm indoors nearly all day."},
-      {pts:2,text:"Once in a while, but it's not a real habit."},
-      {pts:3,text:"I get outside fairly often, but not every day."},
-      {pts:4,text:"I spend time in nature daily and it refreshes my body and mind."}
-    ]},
+
   { id:"q13", pillars:["physical","mental"],
-    title:"How steady is your daily rhythm — waking, eating, and sleeping?",
+    title:"How consistent is your daily rhythm?",
     verse:{ ref:"Ecclesiastes 3:1", text:"To every thing there is a season, and a time to every purpose under the heaven." },
     options:[
       {pts:1,text:"My days have no rhythm. I sleep and eat at random times."},
@@ -264,17 +311,9 @@ const QUESTIONS = [
       {pts:3,text:"I have a decent rhythm, but it's not fully consistent."},
       {pts:4,text:"I wake, eat, and sleep on a steady daily rhythm that keeps me strong."}
     ]},
-  { id:"q14", pillars:["physical","mental"],
-    title:"Do you use any simple biohacking tools to boost your body and mind?",
-    verse:{ ref:"Proverbs 18:15", text:"The heart of the prudent getteth knowledge; and the ear of the wise seeketh knowledge." },
-    options:[
-      {pts:1,text:"No, I don't use anything like that."},
-      {pts:2,text:"I've heard of things like cold showers or breathing, but don't use them."},
-      {pts:3,text:"I try a few habits, for example: cold exposure, sauna, grounding, breathwork, or supplements now and then."},
-      {pts:4,text:"I regularly use tools like cold exposure, sauna, grounding, breathwork, or supplements in my lifestyle to feel my best."}
-    ]},
+
   { id:"q15", pillars:["mental","spiritual"],
-    title:"How often do you serve others and spend time with loved ones?",
+    title:"How connected are you to others, and how often do you serve them?",
     verse:{ ref:"Galatians 5:13", text:"By love serve one another." },
     options:[
       {pts:1,text:"Rarely. I feel isolated and disconnected from others."},
@@ -282,6 +321,17 @@ const QUESTIONS = [
       {pts:3,text:"I connect and serve sometimes, but not as much as I'd like."},
       {pts:4,text:"I regularly serve others and invest real time in the people I love."}
     ]},
+
+  { id:"qtheo", pillars:["spiritual"],
+    title:"Deep down, do you believe God WANTS you healthy and strong in body, soul, and spirit?",
+    verse:{ ref:"1 Corinthians 6:20", text:"For ye are bought with a price: therefore glorify God in your body, and in your spirit, which are God's." },
+    options:[
+      {pts:1,text:"Not really — part of me feels that struggling or self-denial is what pleases God."},
+      {pts:2,text:"I know it in my head, but I don't feel it. I often feel guilt or shame about my body."},
+      {pts:3,text:"I believe it, but guilt or old shame still holds me back at times."},
+      {pts:4,text:"Yes — I believe God delights in every step I take to steward the temple He gave me."}
+    ]},
+
   { id:"q10", pillar:"scale",
     title:"On a scale of 1 to 10, how alive and aligned do you feel today in body, soul, and spirit?",
     verse:{ ref:"1 Thessalonians 5:23", text:"And the very God of peace sanctify you wholly; and I pray God your whole spirit and soul and body be preserved blameless unto the coming of our Lord Jesus Christ." },
@@ -300,9 +350,9 @@ const QUESTIONS = [
 ];
 
 const PILLAR_META = {
-  spiritual:{name:"Spiritual Vessel", short:"Spiritual"},
-  mental:{name:"Mental Shield", short:"Mental"},
-  physical:{name:"Physical Fortress", short:"Physical"}
+  spiritual:{name:"Spirit", short:"Spirit"},
+  mental:{name:"Soul", short:"Soul"},
+  physical:{name:"Body", short:"Body"}
 };
 
 /* ============================================================ STATE ============================================================ */
@@ -367,7 +417,7 @@ document.getElementById("startBtn").addEventListener("click", () => {
 /* ============================================================ QUESTION RENDERING ============================================================ */
 function pillarTagFor(q){
   if(q.pillar === "scale") return "Final Alignment";
-  if(q.id === "q9") return "Body · Mind · Spirit";
+  if(q.id === "q9") return "Body · Soul · Spirit";
   return q.pillars.map(p=> PILLAR_META[p].short).join(" + ");
 }
 
@@ -413,7 +463,11 @@ function renderQuestion(){
     container.querySelectorAll(".opt").forEach(btn=>{
       btn.addEventListener("click", ()=>{
         const idx = +btn.dataset.idx;
-        state.answers[q.id] = { pts:+btn.dataset.pts, text:q.options[idx].text };
+        if(q.diagnostic){
+          state.answers[q.id] = { root:q.options[idx].root, text:q.options[idx].text };
+        } else {
+          state.answers[q.id] = { pts:+btn.dataset.pts, text:q.options[idx].text };
+        }
         btn.classList.add("selected");
         setTimeout(()=> advance(), 240);
       });
@@ -469,7 +523,7 @@ function computeScores(){
   const pp = {spiritual:0,mental:0,physical:0};   // earned points per pillar
   const pmax = {spiritual:0,mental:0,physical:0}; // max possible per pillar
   QUESTIONS.forEach(q=>{
-    if(q.pillar === "scale") return;
+    if(q.pillar === "scale" || q.diagnostic) return;
     q.pillars.forEach(p=>{
       pp[p]   += state.answers[q.id].pts;  // each question adds its points to every pillar it serves
       pmax[p] += 4;                        // and 4 is the max per question
@@ -477,10 +531,10 @@ function computeScores(){
   });
   const scalePts = state.answers.q10.pts;  // 1-10
 
-  // Grand total: every question's points counted once + the scale
+  // Grand total: every scored question's points counted once + the scale
   let baseTotal = 0, baseMax = 0;
   QUESTIONS.forEach(q=>{
-    if(q.pillar === "scale") return;
+    if(q.pillar === "scale" || q.diagnostic) return;
     baseTotal += state.answers[q.id].pts;
     baseMax   += 4;
   });
@@ -636,181 +690,191 @@ function pillarParagraph(pillar, leak){
 }
 
 /* ============================================================
-   5 LIFE-CHANGING TIPS  (with the "why it works" explanation)
-   Each maps to a low-scored answer; strong fallbacks fill the rest.
+   THE PERSONALIZED PROTOCOL  (Biblical + practical)
+   For each pillar we look at every scored answer, find the deepest
+   root, and give ONE clear, easy-to-read next step (<=130 words).
+   Where a root-cause ("diagnostic") question was answered, the advice
+   changes to match the real driver. The guidance is based on solid
+   health research, written in plain language without naming studies.
+   Scripture is woven in as support. If the person says they don't
+   believe in Jesus (q1 = lowest), the Spirit pillar becomes a warm
+   invitation to seek Him.
    ============================================================ */
-/* Tips grouped by pillar, keyed by the questions that feed that pillar.
-   Each pillar has a fallback for when its questions all scored high. */
-const PILLAR_TIPS = {
-  spiritual: {
-    q1: {
-      title: "Win the first 15 minutes with God",
-      action: "Before your phone or coffee, spend 15 minutes in the Word and prayer. Same place, same time, every day.",
-      why: "Your day takes the shape of its first minutes. Give them to God and you anchor your identity before the world can. Distance from God is a slow leak that always starts in the morning."
-    },
-    q2: {
-      title: "Build a verse to stand on in hard moments",
-      action: "Pick one promise from Scripture and memorize it. When a setback hits, speak it out loud before you react.",
-      why: "Setbacks feel overwhelming when you face them with feelings alone. A memorized promise gives your mind solid ground to stand on. Faith grows strongest in the storm, not in the calm."
-    },
-    q8: {
-      title: "Find one brother or sister in faith",
-      action: "Ask one trusted believer to walk with you — to pray for you and check in weekly.",
-      why: "We were never meant to walk with God alone. One faithful companion keeps you accountable and lifts you when you fall. Iron sharpens iron."
-    },
-    q9: {
-      title: "Start with one short weekly fast",
-      action: "Begin with a 16-hour overnight fast once a week, given to God in prayer.",
-      why: "Fasting trains your spirit to lead and your body to follow. It renews the body and draws you close to God at the same time. Start small and let it grow."
-    },
-    q15: {
-      title: "Serve one person this week",
-      action: "Do one intentional act of service for someone, and set aside real time for a loved one.",
-      why: "Faith grows when it's given away. Serving others pulls you out of yourself and into God's heart for people. Connection is where the soul is healed."
-    },
-    fallback: {
-      title: "Pour your faith into someone else",
-      action: "Disciple or encourage one person in their walk with God this month.",
-      why: "Strong faith still fades without renewal. Pouring into others cements your own foundation and turns private strength into lasting legacy."
-    }
-  },
-  physical: {
-    q3: {
-      title: "Remove every barcode from your kitchen",
-      action: "Clear out processed food and replace it with God-made whole foods: meat, eggs, fish, fruit, and vegetables.",
-      why: "Willpower fails at temptation, but your environment decides the outcome long before. You can't lose a battle that never reaches your hand. Processed food is built to override your fullness signals."
-    },
-    q4: {
-      title: "Make a daily walk non-negotiable",
-      action: "Walk 30 minutes every day toward 10,000 steps, ideally outdoors in daylight.",
-      why: "Walking burns fat, lowers stress, and clears your mind without burnout. Daily repeatable action beats rare heroic effort. A body in motion starts to believe change is possible."
-    },
-    q5: {
-      title: "Train your strength two to three times a week",
-      action: "Lift weights or do resistance training 2-3 times weekly, slowly adding more over time.",
-      why: "Muscle is the engine of a healthy body — it controls energy, metabolism, and how strong you stay for life. Strength built now is a gift to your future self."
-    },
-    q6: {
-      title: "Anchor your body with morning sunlight",
-      action: "Get 10 minutes of sunlight in your eyes within an hour of waking, and dim screens 90 minutes before bed.",
-      why: "Morning light tells your body when to wake and when to sleep. Better sleep repairs everything downstream — energy, cravings, and mood. Fix the light and you fix the foundation."
-    },
-    q9: {
-      title: "Use fasting to renew your body",
-      action: "Try one structured fast each week to give your body time to rest and repair.",
-      why: "Fasting lets the body heal, steadies energy, and sharpens focus. It teaches your appetite to obey you instead of ruling you. Discipline in the small builds strength in the large."
-    },
-    q11: {
-      title: "Drink a glass of water first thing",
-      action: "Start every morning with a large glass of water, and keep a bottle with you through the day.",
-      why: "You wake up dehydrated, and even mild dehydration drains energy and focus. Water is the simplest upgrade for your body and mind. Most tiredness is just thirst in disguise."
-    },
-    q12: {
-      title: "Step into nature every day",
-      action: "Get outside for at least 15 minutes of fresh air and natural light, ideally on grass or among trees.",
-      why: "Time in nature lowers stress and lifts your mood within minutes. God's creation restores what screens and walls drain. It's free medicine for body and soul."
-    },
-    q13: {
-      title: "Set fixed wake and sleep times",
-      action: "Wake and sleep at the same time each day, even on weekends, and eat at steady times.",
-      why: "Your body runs on rhythm. Steady timing sharpens energy, digestion, and sleep all at once. A predictable rhythm is the quiet foundation of a strong body."
-    },
-    q14: {
-      title: "Try one simple body-and-mind tool",
-      action: "Add one easy practice: a cold finish to your shower, 5 minutes of deep breathing, or morning sunlight.",
-      why: "Small, natural stressors make your body more resilient. These simple tools boost energy and focus with no cost. Master your biology and everything else gets easier."
-    },
-    fallback: {
-      title: "Guard your physical strength",
-      action: "Keep your training progressive and your whole-food habits consistent, even in busy seasons.",
-      why: "A strong body still declines without upkeep. Consistency in the good weeks protects you in the hard ones. Stewardship is a lifelong rhythm, not a sprint."
-    }
-  },
-  mental: {
-    q2: {
-      title: "Reframe setbacks as data, not defeat",
-      action: "After a hard moment, write down one lesson it taught you instead of replaying the failure.",
-      why: "A setback only defeats you when you treat it as final. Naming the lesson turns pain into progress. What you focus on grows."
-    },
-    q5: {
-      title: "Speak life over your body",
-      action: "Replace harsh self-talk with one true, kind statement about your body and repeat it daily.",
-      why: "How you talk about your body shapes how you treat it. Shame fuels self-sabotage; truth fuels change. Your mind leads where your body follows."
-    },
-    q6: {
-      title: "Build a wind-down routine for real rest",
-      action: "Set a fixed bedtime, dim the lights, and put screens away 90 minutes before sleep.",
-      why: "A racing mind can't recover. A calm wind-down signals your brain it's safe to rest. Deep sleep is where your mind and body repair."
-    },
-    q7: {
-      title: "Hand your worries to God on paper",
-      action: "Each evening, write down what's weighing on you and pray it over to God before bed.",
-      why: "Worry kept inside spins in circles. Naming it and giving it to God breaks the cycle. A quiet mind makes wise decisions."
-    },
-    q8: {
-      title: "Recruit one accountability partner",
-      action: "Tell one trusted person your goal out loud and give them permission to check on you weekly.",
-      why: "A goal kept secret dies in private; one spoken out loud becomes binding. Hidden struggle is where relapse hides. We were never designed to fight alone."
-    },
-    q9: {
-      title: "Use fasting to sharpen your mind",
-      action: "Try a short weekly fast and notice the mental clarity it brings.",
-      why: "Fasting steadies your focus and trains self-control. Mastering your appetite builds discipline that spills into every area. Strength of mind is built, not born."
-    },
-    q12: {
-      title: "Take a daily walk in nature",
-      action: "Step outside for 15 minutes of fresh air and natural surroundings each day.",
-      why: "Nature calms a racing mind faster than almost anything else. Even a short walk outside lowers stress and clears your head. God's creation was made to restore you."
-    },
-    q13: {
-      title: "Anchor your day with a steady rhythm",
-      action: "Keep consistent wake, meal, and sleep times so your mind knows what to expect.",
-      why: "A chaotic schedule keeps your mind on edge. Rhythm creates a sense of safety and control. A steady day makes for a steady mind."
-    },
-    q14: {
-      title: "Use breathwork to reset your mind",
-      action: "When stress rises, take 5 slow breaths — in for 4 seconds, out for 6.",
-      why: "Slow breathing switches your body out of fight-or-flight in seconds. It's a tool you carry everywhere, for free. Calm the breath and you calm the mind."
-    },
-    q15: {
-      title: "Invest real time in people",
-      action: "Schedule one meaningful moment with a loved one and one act of service this week.",
-      why: "Isolation feeds anxiety; connection heals it. Serving and loving others lifts your mind out of its own worries. We are built for one another."
-    },
-    fallback: {
-      title: "Audit your week every Sunday",
-      action: "Spend 10 minutes each Sunday reviewing what worked, what drained you, and what you'll adjust.",
-      why: "What gets measured gets mastered. A weekly review keeps a strong mind sharp and catches small leaks early. Champions don't drift — they audit."
-    }
-  }
+
+const BRANCH = { q3:"qfood", q7:"qcope", q8:"qopen" };
+
+/* Shown as the whole Spirit-pillar advice when q1 == "I don't believe in Jesus Christ". */
+const GOSPEL_INVITATION = "Before any plan for your body, there's an invitation for your spirit: the One who made you is not far away. Jesus said, \"For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life\" (John 3:16). The way in is simple: \"If thou shalt confess with thy mouth the Lord Jesus, and shalt believe in thine heart that God hath raised him from the dead, thou shalt be saved\" (Romans 10:9). You don't need it all figured out — you only need to seek. If you're willing, pray this honestly: \"Dear Lord Jesus, if You are real, make Yourself known to me, and I will follow You. In Jesus' name I have prayed, Amen.\" Then start reading the Bible, the Word of God — it's the number one place God will speak to you. Through it you get to know Him; it's a mirror for your life, where you recognise yourself and see exactly how to grow in every area. Begin in the New Testament, in the book of Matthew.";
+
+const ADVICE = {
+  /* ---------- SPIRIT ---------- */
+  q1:{ area:"your daily walk with God",
+    deep:"Your faith is real, but it comes and goes — and being steady is what changes your life. Start tomorrow, before you touch your phone, with 15 minutes of prayer and Bible reading, at the same time each day. Jesus said a branch cut off from the vine can't bear fruit (John 15:5). This helps your body too: time with God calms your stress and steadies your mind, which makes eating, sleeping, and training easier. People who stay close to God and their church even tend to live longer and feel less anxious. Put God first each morning, and everything else gets easier to carry.",
+    tune:"keep your first 15 minutes each day for prayer and the Bible — let it anchor everything else" },
+  q2:{ area:"how you handle setbacks",
+    deep:"You bounce back slowly after a hard hit, and that's where most people give up. The Bible says hard times, handled right, build patience and hope (Romans 5:3-4). Here's a simple truth: when you name what you feel and remember God's promise before you react, your mind calms down and you can think clearly again. So pick one promise of God today, put it on your phone's lock screen, and say it out loud the moment things go wrong — then take one small step within the hour. A planned response keeps one slip-up from becoming a wasted week. The setback becomes your teacher, not your verdict.",
+    tune:"shrink the gap between a fall and your comeback — name the lesson, claim a promise, and act today" },
+  q9:{ area:"fasting",
+    deep:"You don't fast in a regular way yet, and you're missing a powerful tool. Jesus said \"when you fast,\" not \"if\" (Matthew 6:17) — He expected it. Here's why it works: after about 16 hours without food, your body switches from burning sugar to burning fat, starts repairing itself, steadies your blood sugar, and sharpens your focus. Start this week with one 16-hour fast — finish dinner by 8pm and eat again at noon — and pray during it. Every time hunger says \"now\" and you answer \"not yet,\" you teach your spirit to lead your appetite. That one win usually spreads into your food, focus, and self-control everywhere else.",
+    tune:"make fasting a set weekly habit tied to prayer, so it renews both body and spirit" },
+  qtheo:{ area:"how you see your body before God",
+    deep:"Deep down, you may feel God doesn't care about your body, or that you deserve to feel bad. The Bible says the opposite: your body is God's temple, bought at a price, made to honour Him — not to be punished (1 Corinthians 6:19-20). This matters, because shame doesn't help you change; it keeps you stuck and hiding. Being kind to yourself is what helps you follow through. So do one thing today: thank God out loud for your body as His gift, then take one small step to care for it — a walk, a glass of water, an early night. Not to earn His love, but because in Jesus you already have it.",
+    tune:"keep trading guilt for thanks — you care for your body out of God's love, not to earn it" },
+
+  /* ---------- BODY ---------- */
+  q3:{ area:"the way you eat",
+    tune:"build every meal around protein and fat first to calm the cravings",
+    deepByRoot:{
+      emotion:"Your eating isn't about weak willpower — it's about feelings. When stress hits, your body reaches for sugar and fat because they calm you for a moment. The fix is to break the link between feeling and food. Try this: before you eat, pause and ask one honest question — \"Am I hungry, or am I hurting?\" If it's a feeling, name it and bring it to God in one sentence (Matthew 11:28) — He always gives a way out. Then drink a glass of water, wait ten minutes, and eat a meal built on real protein, which keeps you full and steadies your mood. Each time you pause before you reach, the old habit gets weaker — often within days.",
+      noplan:"Your eating isn't a character flaw — you just need a plan, and that's easy to build. The truth is the food does a lot of the damage: people eat hundreds of calories more each day on processed food without even noticing. So tonight, decide exactly what you'll eat tomorrow, and get processed food out of sight — you can't lose a fight that never reaches your hand. Build each plate around protein and healthy fat first to stop the blood-sugar swings that cause cravings. Deciding ahead of time makes you far more likely to follow through. One choice made now beats ten made when you're tempted — eat it all to God's glory (1 Corinthians 10:31).",
+      knowledge:"This isn't failure — you just need to know how, and that comes quickly. The biggest change is simply eating real food: people eat hundreds of fewer calories a day on whole food than on processed, without even trying. You don't need recipes or numbers. Build every plate from one protein, two vegetables, and some fruit — simple, God-made food. The fibre and protein keep you full and steady, so the crash-and-crave cycle stops. Learn three easy meals you can repeat without thinking. The Bible says whatever you eat, eat it to God's glory (1 Corinthians 10:31). Keep it simple and steady, and your energy and cravings will change.",
+      environment:"Your surroundings are the real problem — and willpower almost always loses to your environment. Even with the same calories, people eat more when junk food is just sitting there. You can't beat a kitchen full of temptation by trying harder. So today, clear out the three worst trigger foods and put whole foods where you can see and reach them. We eat what's easy and in front of us. Make a simple plan for hard moments: \"If it's 3pm and I want a snack, I eat the fruit on the counter.\" Change your space, and your space changes you — all to God's glory (1 Corinthians 10:31).",
+      none:"Build your plate around protein and healthy fat first, with whole foods you can see and reach. Even with the same calories, people overeat when processed food is around — so just choosing real food removes the fight before it starts. Protein-first meals keep your blood sugar steady and stop the crashes that make you snack. Keep it simple and repeatable, and eat it all to God's glory (1 Corinthians 10:31).",
+      default:"Build your plate around protein and healthy fat first, with whole foods you can see and reach. Even with the same calories, people overeat when processed food is around — so just choosing real food removes the fight before it starts. Protein-first meals keep your blood sugar steady and stop the crashes that make you snack, all to God's glory (1 Corinthians 10:31)." } },
+  q4:{ area:"daily movement",
+    deep:"You're barely moving, and this is one of the easiest big wins you have. Start with a 30-minute walk in daylight every day, set as a must-do — the Bible says training the body has its value (1 Timothy 4:8). Walking lowers stress, lifts your mood as much as some medicine can, and burns fat without wearing you out. Then add some strength work two or three times a week: even a little lifting each week is linked to a longer life. Exercise also helps your brain grow and fight off low moods. Begin with walking — it gives your body proof that change is real, the momentum no crash plan can give.",
+    tune:"add some strength training two or three times a week and grow it slowly — muscle is your engine for life" },
+  q5:{ area:"your weight and body",
+    deep:"Stop the crash-diet cycle — it fails because it fights the symptom, not the cause. The deeper fix is muscle: it's active tissue that protects your health, helps you live longer, and reshapes your body far better than starving yourself. Pick three daily habits: protein at breakfast (it keeps you full longest), a 30-minute walk, and water before meals. Let weight come off as the result of caring for God's temple, not punishing it (1 Corinthians 6:19). And protect your sleep — too little sleep raises hunger and quietly blocks fat loss. Build the habits, feed the muscle, and your body follows — for good, not just for a season.",
+    tune:"aim for strength, not just a lower number — build muscle and feed it protein" },
+  q6:{ area:"sleep and recovery",
+    deep:"Sleep quietly controls your cravings, mood, and willpower — so fix it first. When you sleep only about four hours, your hunger hormone jumps, your \"full\" hormone drops, and you feel much hungrier the next day, especially for sugar and starch. So poor sleep creates the cravings you blame on yourself. Two steps, starting tomorrow: get 10 minutes of sunlight in your eyes within an hour of waking to set your body clock; and put screens away 90 minutes before bed, because their light blocks the sleep hormone. The Bible says God lets His loved ones lie down in peace (Psalm 4:8). Win the night, and the whole day gets easier.",
+    tune:"keep the same sleep and wake time with a short wind-down, so sleep becomes real rest" },
+  q11:{ area:"how much water you drink",
+    deep:"Water is the cheapest energy boost you're skipping. You wake up a little dried out, and even being slightly low on water makes you tired, foggy, and moody, and makes everything feel harder. A lot of the tiredness you fix with coffee is really just thirst. So tomorrow, drink a big glass of water the moment you wake up, before coffee, and keep a full bottle where you can see it all day — we drink what we see. Tie it to things you already do: \"when I sit down to work, I drink.\" Jesus spoke of living water inside us (John 7:38); start with the real kind, and feel the lift within days.",
+    tune:"keep water in sight and tie a few glasses to things you already do" },
+
+  /* ---------- SOUL ---------- */
+  q7:{ area:"stress and your thoughts",
+    tune:"build one or two real pauses into each day so stress has less room to climb",
+    deepByRoot:{
+      food:"Stress is steering your eating — when you're tense, your body craves sugar and fat, and food calms you for a moment before the guilt starts it again. The fix begins with your body, not your plate. The fastest reset is your breath: take two breaths in through your nose, then one long, slow breath out, for a few minutes — it calms you better than just sitting still. Tonight, write your worries down and pray them over to God (Philippians 4:6-7); when stress spikes, breathe like this before you eat. Calm the body first, and the craving loses its fuel.",
+      screen:"You calm stress with screens, but it's a trap — scrolling keeps your body on edge and steals the rest you need, and screen light at night blocks your sleep, which feeds tomorrow's stress. Swap numbing for a real off-switch. Take two breaths in through your nose, then one long, slow breath out, for a few minutes — it calms your body better than just sitting quietly. Tonight, write your worries down and hand them to God (Philippians 4:6-7); when anxiety rises, breathe like this before you reach for your phone. Trade the screen for stillness, and you'll feel the difference fast.",
+      withdraw:"You pull away when you're stressed — it feels safe, but being alone makes worry and low moods worse. We aren't built to carry pain by ourselves. Do two things today. First, calm your body: take two breaths in through your nose, then one long, slow breath out, for a few minutes. Second, turn toward people, not away: write your worries down and pray them to God (Philippians 4:6-7), then send one honest message to someone you trust. Saying a burden out loud — to God and to one person — makes it lighter. Don't shut the door; open it a crack, today.",
+      overwork:"You handle stress by working harder, which keeps your body stuck in \"fight or flight\" — and long-term stress quietly wears down your sleep, weight, and mood. Control isn't the same as peace. Rest is what resets you: take two breaths in through your nose, then one long, slow breath out, for a few minutes, and your whole system settles. Tonight, write your worries down and truly hand them to God (Philippians 4:6-7), and build one real pause into tomorrow — even five slow breaths between tasks. Strength isn't carrying more; it's learning, before God, to put the weight down.",
+      healthy:"You already handle stress fairly well — now make calming down a daily habit, not just a rescue. The simplest tool is your breath: take two breaths in through your nose, then one long, slow breath out, for a few minutes; it calms your body better than just sitting quietly. Each evening, write your worries down and pray them over to God, thanking Him too (Philippians 4:6-7); when pressure rises, breathe like this. A mind given to God each day, and a body you can calm on command, stays steady under pressure.",
+      default:"Make calming down a daily habit, not just a rescue. The simplest tool is your breath: take two breaths in through your nose, then one long, slow breath out, for a few minutes; it calms your body better than just sitting quietly. Each evening, write your worries down and pray them over to God, thanking Him too (Philippians 4:6-7); when pressure rises, breathe like this. A mind given to God each day stays steadier under pressure." } },
+  q8:{ area:"the support around you",
+    tune:"let one person see what you tend to hide — a struggle said out loud loses its power",
+    deepByRoot:{
+      shame:"Shame keeps you stuck — it grows in secret and tells you you're the only one. The Bible's fix is simple and practical: tell your struggles to one another, and you'll be healed (James 5:16). You don't need a crowd, just one safe person. Today, tell one trusted believer the thing you most want to hide. Two things happen: the secret loses its power, and you gain someone to keep you on track — and a goal someone checks on is far more likely to stick. Being alone is hard on your health, too. Letting someone in isn't weakness; it's medicine.",
+      trust:"Fighting alone feels safer, but it's the very thing keeping you stuck. The Bible says two are better than one, because when one falls the other lifts him up (Ecclesiastes 4:9-10). This is real for your health: people with close ties live longer and feel better, while being cut off harms you. If you don't trust anyone with this yet, start there, gently. This week, take one small step toward people — a church group, a small circle, or a coach — and be honest with one person about one thing. Trust grows through small, safe steps over time. Start with one; you were never meant to carry this alone.",
+      perfection:"Thinking you must handle it all alone is pride dressed up as strength, and it leaves you stuck right where you need help. The Bible is plain: when one falls, he needs someone to lift him up (Ecclesiastes 4:9-10). Going it alone also removes the best success booster there is — someone to answer to. A goal you say out loud to a person who checks on you is far more likely to last. Being cut off is hard on your health, too. So today, let one trusted person see one area you've handled alone, and ask them to check on you each week. Accountability isn't weakness — it's a tool strong people choose on purpose.",
+      burden:"You think your honesty is a burden — but it's the opposite. Real friendships are built by carrying each other (Ecclesiastes 4:9-10), and the people who love you want to help. Hiding to \"protect\" them just leaves you more alone, which is hard on your health. The Bible ties healing to being open: tell your struggles to one another, and be healed (James 5:16). So today, tell one of them one true thing you've been hiding, and let them check on you each week — a shared goal is far more likely to stick. Your honesty will probably set them free to be honest too. You were never meant to carry it alone.",
+      none:"Make your strong support count — most people never turn good relationships into real help. This week, tell one trusted person your exact goal and ask them to check on you each week. A goal someone keeps an eye on is far more likely to stick, and two are better than one — when one falls, the other lifts him up (Ecclesiastes 4:9-10). Close relationships also help you live longer and feel better.",
+      default:"Make your support count: this week, tell one trusted person your exact goal and ask them to check on you each week. A goal someone keeps an eye on is far more likely to stick, and two are better than one (Ecclesiastes 4:9-10). Close relationships also help you live longer and feel better." } },
+  q13:{ area:"your daily rhythm",
+    deep:"Your days have no rhythm, and that alone is wearing you out — apart from what you eat. Your body runs on a 24-hour clock that controls your energy, hormones, digestion, and mood. When your wake, meal, and sleep times jump around, that clock never settles, so you feel tired and foggy. The Bible says there's a time for everything (Ecclesiastes 3:1). Start today with three fixed points: the same wake-up time (with morning sunlight), regular meals, and a set bedtime with a short wind-down. Keep the timing steady for two weeks, and your energy, calm, and self-control will rise to match the order you've given your body.",
+    tune:"tighten the one time that slips most — usually bedtime — and hold it steady" },
+  q15:{ area:"connection and serving",
+    deep:"Reconnecting isn't a \"nice extra\" for your health — it's a foundation. People with strong ties live longer and feel better, while being cut off is truly harmful — about as harmful as smoking. Those who stay close to their church and community tend to live longer too, with less depression. We're built for this: serving and connecting calm your stress and lift your mood, and the Bible says we're set free to serve one another in love (Galatians 5:13). This week, do two simple things: message one person you love to set a real time together, and do one act of service. The fastest way out of your own pain is often a step toward someone else's.",
+    tune:"plan connection and service like they matter, moving them from rare to regular" },
+  qbelief:{ area:"your belief that change is possible",
+    deep:"This may be your biggest leak: if you don't believe change is possible for you, you'll quit before it starts — and that's not humility, it's a lie that past failure told you. With God, all things are possible (Matthew 19:26). Here's the key: believing you can do something is one of the strongest reasons people actually change — and you build that belief with proof, not hype. So start tiny: pick one small thing you're sure you can do every day (one glass of water, a five-minute walk, one verse), make a clear plan for when and where, and keep the promise. Each kept promise is proof, and stacked-up proof rewrites what you believe you can do. Start small — today.",
+    tune:"keep stacking small promises you keep — each one rebuilds your belief that change is real" }
 };
 
-/* Which questions feed each pillar (must match the pillars arrays above) */
-const PILLAR_QUESTIONS = {
-  spiritual:["q1","q2","q8","q9","q15"],
-  physical:["q3","q4","q5","q6","q9","q11","q12","q13","q14"],
-  mental:["q2","q5","q6","q7","q8","q9","q12","q13","q14","q15"]
+const ADVICE_PILLARS = {
+  spiritual:["q1","q2","q9","qtheo"],
+  physical:["q3","q4","q5","q6","q11"],
+  mental:["q7","q8","q13","q15","qbelief"]
 };
+const PILLAR_WORD = { spiritual:"spirit", physical:"body", mental:"soul" };
 
-/* Returns up to 2 tips for a pillar: prioritise the questions scored lowest (1-2 pts),
-   then 3-pt questions, then the pillar fallback. Always returns at least one. */
-function tipsForPillar(pillar){
-  const qs = PILLAR_QUESTIONS[pillar];
-  const bank = PILLAR_TIPS[pillar];
-  const tips = [];
-  const CAP = 2;
-  // 1) low-scored questions first (worst first)
-  qs.filter(q=> state.answers[q] && state.answers[q].pts<=2)
-    .sort((a,b)=> state.answers[a].pts - state.answers[b].pts)
-    .forEach(q=>{ if(tips.length<CAP) tips.push(bank[q]); });
-  // 2) mid-scored (3 pts) questions, only if we still have room
-  if(tips.length<CAP){
-    qs.filter(q=> state.answers[q] && state.answers[q].pts===3)
-      .forEach(q=>{ if(tips.length<CAP) tips.push(bank[q]); });
+function joinAreas(arr){
+  if(arr.length===1) return arr[0];
+  if(arr.length===2) return arr[0]+" and "+arr[1];
+  return arr.slice(0,-1).join(", ")+" and "+arr[arr.length-1];
+}
+function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+
+function deepMoveFor(q){
+  const a = ADVICE[q];
+  if(a.deepByRoot){
+    const diagId = BRANCH[q];
+    const root = diagId && state.answers[diagId] ? state.answers[diagId].root : null;
+    return a.deepByRoot[root] || a.deepByRoot.default;
   }
-  // 3) fallback if still empty (pillar is strong)
-  if(tips.length===0) tips.push(bank.fallback);
-  return tips;
+  return a.deep;
+}
+
+/* Tracks the tips already used in the current report so no two pillars
+   ever show the same advice. Reset at the start of each report build. */
+let USED_TIP_SIGS = new Set();
+function tipSig(t){ return t.replace(/<[^>]+>/g,"").toLowerCase().replace(/[^a-z0-9 ]/g,"").split(/\s+/).filter(Boolean).slice(0,10).join(" "); }
+
+/* Analyze all scored answers in a pillar -> one clear, plain-language step (<=130 words). */
+function adviceForPillar(pillar){
+  // If the person doesn't yet believe in Jesus, the Spirit pillar is an invitation to seek Him.
+  if(pillar==="spiritual" && state.answers.q1 && state.answers.q1.pts===1){
+    return GOSPEL_INVITATION;
+  }
+
+  const qs = (ADVICE_PILLARS[pillar]||[]).filter(q=> state.answers[q] && ADVICE[q]);
+  if(!qs.length) return "";
+  const word = PILLAR_WORD[pillar];
+  const byScore = (a,b)=> state.answers[a].pts - state.answers[b].pts || qs.indexOf(a) - qs.indexOf(b);
+  const weak   = qs.filter(q=> state.answers[q].pts<=2).sort(byScore);
+  const mid    = qs.filter(q=> state.answers[q].pts===3).sort(byScore);
+  const strong = qs.filter(q=> state.answers[q].pts===4);
+  const nameOf = q=> ADVICE[q].area;
+  const WORDS = s => s.replace(/<[^>]+>/g,"").trim().split(/\s+/).filter(Boolean).length;
+
+  // Pick the primary question for the deep move, skipping any tip already
+  // used by another pillar so two pillars never give the same advice.
+  const pickPrimary = (cands)=>{
+    for(const q of cands){ if(!USED_TIP_SIGS.has(tipSig(deepMoveFor(q)))) return q; }
+    return cands[0];
+  };
+
+  // 1) DIAGNOSIS (a short lead naming the pattern)
+  let diag;
+  if(weak.length>=3){
+    diag = `For your ${word}, a few things are pulling you down at once — ${nameOf(weak[0])} and ${nameOf(weak[1])} most of all.`;
+  } else if(weak.length===2){
+    diag = `For your ${word}, ${joinAreas(weak.map(nameOf))} are where you're losing the most right now.`;
+  } else if(weak.length===1){
+    diag = `For your ${word}, ${nameOf(weak[0])} is the one real leak — and it deserves your full focus.`;
+  } else if(mid.length){
+    diag = `For your ${word}, you're on solid ground — ${joinAreas(mid.map(nameOf))} just need sharpening.`;
+  } else {
+    diag = `For your ${word}, you're genuinely strong across the board — an anchor to build the rest of your life on.`;
+  }
+
+  // 2) THE MAIN STEP + an optional closing line
+  let body, closing = "";
+  if(weak.length){
+    const primary = pickPrimary(weak);
+    body = deepMoveFor(primary);
+    USED_TIP_SIGS.add(tipSig(body));
+    const second = weak.find(q=> q!==primary);
+    if(second){
+      closing = "Then " + ADVICE[second].tune + ".";
+    } else if(strong.length){
+      closing = `Lean on your strength in ${joinAreas(strong.map(nameOf))} while you build this.`;
+    } else if(mid.length){
+      closing = "Then " + ADVICE[mid[0]].tune + ".";
+    }
+  } else if(mid.length){
+    const primary = pickPrimary(mid);
+    body = cap(ADVICE[primary].tune) + ".";
+    USED_TIP_SIGS.add(tipSig(ADVICE[primary].deep || (ADVICE[primary].deepByRoot ? deepMoveFor(primary) : body)));
+    const second = mid.find(q=> q!==primary);
+    if(strong.length){
+      closing = `Keep leaning on your strength in ${joinAreas(strong.map(nameOf))}.`;
+    } else if(second){
+      closing = "Then " + ADVICE[second].tune + ".";
+    }
+  } else {
+    body = "Your job now isn't fixing, it's protecting and passing it on: keep these habits through busy seasons, and pour what you've built into someone who's still struggling.";
+  }
+
+  // 3) KEEP IT UNDER 130 WORDS — the main step is always kept whole;
+  //    the diagnosis lead and closing are added only if they fit.
+  let out = body;
+  if(diag && WORDS(diag + " " + out) <= 130) out = diag + " " + out;
+  if(closing && WORDS(out + " " + closing) <= 130) out = out + " " + closing;
+  return out;
 }
 
 /* ============================================================ BAR COLOR ============================================================ */
@@ -840,19 +904,15 @@ function finishAssessment(skipDispatch){
   }
 
   const sortedPillars = ["spiritual","mental","physical"].sort((a,b)=> s.leaks[b]-s.leaks[a]);
+  USED_TIP_SIGS = new Set();   // ensure no two pillars repeat the same tip
   const pillarsHTML = sortedPillars.map(p=>{
     const leak = s.leaks[p];
     const color = leakColor(leak);
-    const pillarTips = tipsForPillar(p);
-    const tipsBlock = pillarTips.map(t=>`
-      <div class="mt-4 rounded-xl p-5" style="background: rgba(0,0,0,0.18); border: 1px solid var(--gold-line);">
-        <div class="flex items-start gap-3 mb-2">
-          <span class="gold-text text-base leading-none mt-0.5">✦</span>
-          <h5 class="display text-lg font-semibold leading-snug" style="color: var(--ink);">${t.title}</h5>
-        </div>
-        <p class="text-[14px] leading-relaxed mb-3" style="color: var(--ink);"><span class="gold-text font-semibold">Do this:</span> ${t.action}</p>
-        <p class="text-[13px] leading-relaxed pl-3" style="color: var(--ink-soft); border-left: 2px solid var(--gold-line);"><span class="gold-text font-semibold">Why it works:</span> ${t.why}</p>
-      </div>`).join("");
+    const adviceStory = adviceForPillar(p);
+    const adviceBlock = adviceStory ? `
+      <div class="mt-4 rounded-xl p-5 sm:p-6" style="background: rgba(0,0,0,0.18); border: 1px solid var(--gold-line);">
+        <p class="text-[14px] sm:text-[15px] leading-relaxed" style="color: var(--ink-soft);">${adviceStory}</p>
+      </div>` : "";
     return `
       <div class="card hairline rounded-2xl p-6 sm:p-7 mb-6 vignette">
         <div class="flex items-center justify-between mb-3">
@@ -863,8 +923,8 @@ function finishAssessment(skipDispatch){
           <div class="bar-fill h-full rounded-full" style="width:0%; background:${color}" data-target="${leak}"></div>
         </div>
         <p class="text-[15px] leading-relaxed" style="color: var(--ink-soft);">${pillarParagraph(p, leak)}</p>
-        <p class="gold-text text-[11px] font-semibold tracking-[0.2em] uppercase mt-6 mb-1">Your next moves</p>
-        ${tipsBlock}
+        <p class="gold-text text-[11px] font-semibold tracking-[0.2em] uppercase mt-6 mb-1">Your life-changing next step</p>
+        ${adviceBlock}
       </div>`;
   }).join("");
 
@@ -873,7 +933,7 @@ function finishAssessment(skipDispatch){
   const report = document.getElementById("screen-report");
   report.innerHTML = `
     <div class="text-center mb-8">
-      <p class="gold-text tracking-[0.32em] text-[11px] font-semibold mb-4">YOUR GENESIS REPORT</p>
+      <p class="gold-text tracking-[0.32em] text-[11px] font-semibold mb-4">YOUR KINGDOM HEALTH SCAN</p>
       <div class="display text-[76px] sm:text-[92px] font-bold leading-none gold-text">${s.grandPct}<span class="text-4xl align-top">%</span></div>
       <p class="display text-2xl italic mt-2" style="color: var(--ink);">${tl.name}</p>
       <p class="mt-1 text-sm" style="color: var(--ink-mute);">${tl.line}</p>
@@ -897,28 +957,32 @@ function finishAssessment(skipDispatch){
       </a>
     </div>
 
-    <!-- SECTION B: PILLARS + TIPS -->
+    <!-- SECTION B: PILLARS + PERSONALIZED ADVICE -->
     <div class="mb-2">
-      <h3 class="display text-3xl font-semibold gold-text mb-1">Your Three Pillars</h3>
-      <p class="text-sm mb-6" style="color: var(--ink-mute);">Sorted from your biggest growth area down to your strongest pillar — with the exact moves to grow in each one.</p>
+      <h3 class="display text-3xl font-semibold gold-text mb-1">Your Body, Soul &amp; Spirit</h3>
+      <p class="text-sm mb-6" style="color: var(--ink-mute);">Here's exactly where you stand in each pillar — and the hidden saboteur at the root. Each step below is drawn from your specific answers, grounded in Scripture and the best health science, and built to be acted on today.</p>
     </div>
     ${pillarsHTML}
 
     <!-- SECTION D: FULL CTA (under the pillars) -->
     <div class="rounded-3xl p-8 sm:p-11 text-center mt-12 vignette" style="background: linear-gradient(180deg, var(--forest-soft), var(--forest)); border: 1px solid var(--gold-2);">
-      <h3 class="display text-3xl sm:text-4xl font-bold gold-text leading-tight mb-5">This report showed you your growth areas. The next step is to grow in them — for good.</h3>
-      <p class="text-[16px] leading-relaxed max-w-xl mx-auto mb-3" style="color: var(--ink);">
-        Right now you stand at a crossroads. One road is the one you already know: another year of the same battles, the same fatigue, the same distance from the person God created you to be.
-      </p>
+      <h3 class="display text-3xl sm:text-4xl font-bold gold-text leading-tight mb-5">This scan showed you the saboteurs. The next step is to remove them — for good.</h3>
       <p class="text-[16px] leading-relaxed max-w-xl mx-auto mb-8" style="color: var(--ink-soft);">
-        The other road begins with one honest decision. In a single conversation, Robin's team will turn this report into a clear, personal blueprint to reclaim your body, your discipline, and your walk with God — and to hold it for the rest of your life. <span class="gold-text font-semibold">If you feel the pull to change, that is the moment to honor it.</span>
+        Imagine waking up a year from now with energy that doesn't run out, a body you're proud of, a quiet mind, and a closeness to God you can feel in your bones. That is exactly what our <span class="gold-text font-semibold">coaching program</span> is built to give you — a complete transformation of your <span class="gold-text font-semibold">body, soul, and spirit</span>, and the tools to hold it for the rest of your life. You don't have to carry these saboteurs one more year. <span class="gold-text font-semibold">The person God created you to be is on the other side of this one decision — take it now, while your heart is still stirred.</span>
       </p>
 
+      <!-- CTA button ABOVE Robin -->
+      <a href="${CALENDLY_URL}" target="_blank" rel="noopener"
+         class="gold-fill inline-block font-semibold text-[19px] px-12 py-5 rounded-2xl transition-all mb-9"
+         style="box-shadow: 0 20px 50px -20px rgba(217,180,90,0.6);">
+        Claim Your Free Strategy Call
+      </a>
+
       <!-- Robin bio -->
-      <div class="rounded-2xl p-6 mb-8 text-left max-w-xl mx-auto" style="background: rgba(0,0,0,0.2); border: 1px solid var(--gold-line);">
-        <p class="gold-text text-[11px] font-semibold tracking-[0.2em] uppercase mb-3">Who you'll be guided by</p>
+      <div class="rounded-2xl p-6 mb-6 text-left max-w-xl mx-auto" style="background: rgba(0,0,0,0.2); border: 1px solid var(--gold-line);">
+        <p class="gold-text text-[11px] font-semibold tracking-[0.2em] uppercase mb-3">Who will coach you</p>
         <p class="text-[15px] leading-relaxed" style="color: var(--ink);">
-          <span class="gold-text font-semibold">Robin</span> is a committed follower of Jesus Christ, a certified lifestyle coach, and a former top-level athlete who took <span class="gold-text font-semibold">2nd place at the Dutch National Championships in hurdles</span>. He has already helped <span class="gold-text font-semibold">100+ people</span> transform their health in body, mind, and spirit.
+          <span class="gold-text font-semibold">Robin</span> is a committed follower of Jesus Christ, a certified lifestyle coach, and a former top-level athlete who took <span class="gold-text font-semibold">2nd place at the Dutch National Championships in hurdles</span> — combining real faith, professional expertise, and elite-sport discipline to guide your transformation.
         </p>
       </div>
 
@@ -928,6 +992,26 @@ function finishAssessment(skipDispatch){
         <p class="text-[15px] leading-relaxed" style="color: var(--ink);">
           GodHealth is built on a formula you won't find anywhere else on earth: we combine <span class="gold-text font-semibold">ancient Biblical principles</span> with <span class="gold-text font-semibold">modern health science</span> and <span class="gold-text font-semibold">elite-sport expertise</span>. We are the only ones in the world coaching this way — and it's how lasting transformation finally becomes possible.
         </p>
+      </div>
+
+      <!-- 3 five-star reviews -->
+      <div class="mb-9 space-y-4 max-w-xl mx-auto text-left">
+        <p class="gold-text text-[11px] font-semibold tracking-[0.2em] uppercase text-center mb-1">What others are saying</p>
+        <div class="rounded-2xl p-5" style="background: rgba(0,0,0,0.2); border: 1px solid var(--gold-line);">
+          <div class="gold-text text-base mb-1.5 tracking-widest">★★★★★</div>
+          <p class="text-[14px] leading-relaxed italic" style="color: var(--ink);">"I've lost weight before, but this is the first time my faith, my energy and my discipline all changed together. I finally feel like the man God made me to be."</p>
+          <p class="text-[12px] mt-2 gold-text font-semibold">— Mark V.</p>
+        </div>
+        <div class="rounded-2xl p-5" style="background: rgba(0,0,0,0.2); border: 1px solid var(--gold-line);">
+          <div class="gold-text text-base mb-1.5 tracking-widest">★★★★★</div>
+          <p class="text-[14px] leading-relaxed italic" style="color: var(--ink);">"The combination of biblical wisdom and real health science is unlike anything I've found. I sleep better, my anxiety is gone, and I walk closer with God every day."</p>
+          <p class="text-[12px] mt-2 gold-text font-semibold">— Esther D.</p>
+        </div>
+        <div class="rounded-2xl p-5" style="background: rgba(0,0,0,0.2); border: 1px solid var(--gold-line);">
+          <div class="gold-text text-base mb-1.5 tracking-widest">★★★★★</div>
+          <p class="text-[14px] leading-relaxed italic" style="color: var(--ink);">"Robin truly cares and knows what he's doing. In a few months I went from exhausted and stuck to strong, consistent, and full of purpose. Worth every moment."</p>
+          <p class="text-[12px] mt-2 gold-text font-semibold">— Daniël K.</p>
+        </div>
       </div>
 
       <a href="${CALENDLY_URL}" target="_blank" rel="noopener"
